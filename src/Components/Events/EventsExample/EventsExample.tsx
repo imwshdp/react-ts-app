@@ -1,5 +1,4 @@
 import React, {FC, useRef, useState} from 'react';
-import Button from '../Button/Button';
 
 const EventsExample: FC = () => {
   
