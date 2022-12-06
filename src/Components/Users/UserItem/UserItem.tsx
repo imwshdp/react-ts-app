@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
-import { cursorTo } from 'readline';
-import { IUser } from '../../Types/Types';
+import { IUser } from '../../../Types/Types';
 
 interface UserItemProps {
   user: IUser;

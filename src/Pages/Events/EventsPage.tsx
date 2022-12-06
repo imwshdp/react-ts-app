@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 
-import Card, { CardVariant } from '../../Components/Card/Card';
-import EventsExample from '../../Components/EventsExample/EventsExample';
+import Card, { CardVariant } from '../../Components/Events/Card/Card';
+import EventsExample from '../../Components/Events/EventsExample/EventsExample';
 
 const EventsPage: FC = () => {
   return (

@@ -7,6 +7,7 @@ import TodosPage from './Pages/Todos/TodosPage';
 import EventsPage from './Pages/Events/EventsPage';
 import UserItemPage from './Pages/Users/UserItemPage';
 import TodoItemPage from './Pages/Todos/TodoItemPage';
+import ChessPage from './Pages/Chess/ChessPage';
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
         <Link to={'/users'}>Пользователи</Link>
         <Link to={'/todos'}>Задачи</Link>
         <Link to={'/events'}>События</Link>
+        <Link to={'/chess'}>Шахматы</Link>
       </nav>
 
       <main>
@@ -28,6 +30,8 @@ const App = () => {
           <Route path='/todos/:id' element={<TodoItemPage/>} />
 
           <Route path='/events' element={<EventsPage/>} />
+
+          <Route path='/chess' element={<ChessPage />} />
 
           <Route path='' element={<EventsPage/>} />
         </Routes>
