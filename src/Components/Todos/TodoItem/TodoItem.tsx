@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import { ITodo } from '../../../Types/Types';
+import { ITodo } from 'Types/Types';
 
 interface TodoItemProps {
   todo: ITodo;

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import BoardComponent from "../../Components/Chess/BoardComponent";
-import LostFigures from "../../Components/Chess/LostFigures";
-import { Board } from "../../Components/Chess/Models/Board";
-import { Colors } from "../../Components/Chess/Models/Colors";
-import { Player } from "../../Components/Chess/Models/Player";
-import Timer from "../../Components/Chess/Timer";
-import "../../Styles/Chess.css";
+
+import "Styles/Chess.css";
+import Colors from "Components/Chess/Models/Colors";
+import BoardComponent from "Components/Chess/BoardComponent";
+import LostFigures from "Components/Chess/LostFigures";
+import Board from "Components/Chess/Models/Board";
+import Player from "Components/Chess/Models/Player";
+import Timer from "Components/Chess/Timer";
 
 const ChessPage = () => {
+
   // game board state
   const [board, setBoard] = useState(new Board());
 

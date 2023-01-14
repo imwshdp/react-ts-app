@@ -1,11 +1,11 @@
 import React, {FC, useEffect, useState} from 'react';
-import { IUser } from '../../Types/Types';
-import List from '../../Components/List/List';
-import UserItem from '../../Components/Users/UserItem/UserItem';
-import UserList from '../../Components/Users/UserList/UserList';
-
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+
+import { IUser } from 'Types/Types';
+import List from 'Components/List/List';
+import UserItem from 'Components/Users/UserItem/UserItem';
+import UserList from 'Components/Users/UserList/UserList';
 
 const UsersPage: FC = () => {
 

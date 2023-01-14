@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import { IUser } from '../../../Types/Types';
-import UserItem from '../UserItem/UserItem';
+import { IUser } from 'Types/Types';
+import UserItem from 'Components/Users/UserItem/UserItem';
 
 import { useNavigate } from 'react-router-dom'
 

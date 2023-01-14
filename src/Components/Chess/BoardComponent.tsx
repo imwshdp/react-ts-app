@@ -1,13 +1,15 @@
 import React, { FC, useState, useEffect } from "react";
-import "../../Styles/Chess.css";
-import CellComponent from "./CellComponent";
-import { Board } from "./Models/Board";
-import { Cell } from "./Models/Cell";
-import { Colors } from "./Models/Colors";
-import { FigureName } from "./Models/Figures/Figure";
-import { Player } from "./Models/Player";
+import "Styles/Chess.css";
+
+import CellComponent from "Components/Chess/CellComponent";
+import Board from "Components/Chess/Models/Board";
+import Cell from "Components/Chess/Models/Cell";
+import Colors from "Components/Chess/Models/Colors";
+import Player from "Components/Chess/Models/Player";
+import { FigureName } from "Components/Chess/Models/Figures/Figure";
 
 interface BoardProps {
+  
   board: Board;
   setBoard: (board: Board) => void;
   currentPlayer: Player | null;

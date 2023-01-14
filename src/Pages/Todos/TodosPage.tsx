@@ -1,10 +1,10 @@
 import React, {FC, useEffect, useState} from 'react';
-import { ITodo } from '../../Types/Types';
-import List from '../../Components/List/List';
-import TodoItem from '../../Components/Todos/TodoItem/TodoItem';
-
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+
+import { ITodo } from 'Types/Types';
+import List from 'Components/List/List';
+import TodoItem from 'Components/Todos/TodoItem/TodoItem';
 
 const TodosPage: FC = () => {
 

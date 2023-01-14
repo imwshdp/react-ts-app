@@ -1,6 +1,6 @@
 import React, { FC, useState, useRef, useEffect } from "react";
-import { Colors } from "./Models/Colors";
-import { Player } from "./Models/Player";
+import Colors from "Components/Chess/Models/Colors";
+import Player from "Components/Chess/Models/Player";
 
 interface TimerProps {
   currentPlayer: Player | null;
@@ -8,6 +8,7 @@ interface TimerProps {
 }
 
 const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
+  
   const [blackTime, setBlackTime] = useState(600);
   const [whiteTime, setWhiteTime] = useState(600);
 

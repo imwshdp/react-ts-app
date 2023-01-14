@@ -1,14 +1,15 @@
-import { Figure } from './Figures/Figure';
-import { Knight } from './Figures/Knight';
-import { Bishop } from './Figures/Bishop';
-import { Pawn } from './Figures/Pawn';
-import { King } from './Figures/King';
-import { Rook } from './Figures/Rook';
-import { Queen } from './Figures/Queen';
-import { Cell } from "./Cell";
-import { Colors } from "./Colors";
+import Cell from "Components/Chess/Models/Cell";
+import Colors from "Components/Chess/Models/Colors";
 
-export class Board {
+import { Figure } from './Figures/Figure';
+import Knight from 'Components/Chess/Models/Figures/Knight';
+import Bishop from 'Components/Chess/Models/Figures/Bishop';
+import Pawn from 'Components/Chess/Models/Figures/Pawn';
+import King from 'Components/Chess/Models/Figures/King';
+import Rook from 'Components/Chess/Models/Figures/Rook';
+import Queen from 'Components/Chess/Models/Figures/Queen';
+
+class Board {
 
   // cells grid
   cells: Cell[][] = []
@@ -225,3 +226,5 @@ export class Board {
     this.addRooks();
   }
 }
+
+export default Board;

@@ -1,11 +1,11 @@
 import { Figure, FigureName } from './Figure';
-import { Cell } from '../Cell';
-import { Colors } from '../Colors';
+import Cell from "Components/Chess/Models/Cell";
+import Colors from "Components/Chess/Models/Colors";
 
-import blackLogo from '../../../../Assets/black-king.png'
-import whiteLogo from '../../../../Assets/white-king.png'
+import blackLogo from 'Assets/black-king.png'
+import whiteLogo from 'Assets/white-king.png'
 
-export class King extends Figure {
+export default class King extends Figure {
 
   constructor(color: Colors, cell: Cell) {
     super(color, cell);

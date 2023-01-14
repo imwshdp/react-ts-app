@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Cell } from "./Models/Cell";
+import Cell from "Components/Chess/Models/Cell";
 
 interface CellProps {
   cell: Cell;
