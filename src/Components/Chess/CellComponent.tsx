@@ -15,9 +15,12 @@ const CellComponent: FC<CellProps> = ({ cell, selected, click }) => {
         click(cell);
       }}
       // green background if cell contains figure and is available to move
-      style={{
-        background: cell.available && cell.figure ? "green" : "",
-      }}
+      style={
+        // background: cell.available && cell.figure ? "green" : ""
+        cell.figure?.checked === true
+        ? { background: cell.available && cell.figure ? "green" : "", border: "3px solid tomato" }
+        : { background: cell.available && cell.figure ? "green" : "" }
+      }
     >
       {/* green marks of availability to move */}
       {cell.available && !cell.figure && <div className="available" />}

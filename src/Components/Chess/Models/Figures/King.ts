@@ -12,17 +12,19 @@ export class King extends Figure {
     this.name = FigureName.KING;
     this.logo =
       color === Colors.BLACK
-      ? blackLogo
-      : whiteLogo;
+        ? blackLogo
+        : whiteLogo;
+
+    this.checked = false;
   }
 
   canMove(target: Cell): boolean {
-    if(!super.canMove(target)) {
+    if (!super.canMove(target)) {
       return false;
     }
 
     // if X or Y coords differents are less than or equal to 1 = TRUE
-    if(Math.abs(this.cell.x - target.x) <= 1
+    if (Math.abs(this.cell.x - target.x) <= 1
       && Math.abs(this.cell.y - target.y) <= 1) {
       return true;
     }

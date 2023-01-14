@@ -4,6 +4,7 @@ import CellComponent from "./CellComponent";
 import { Board } from "./Models/Board";
 import { Cell } from "./Models/Cell";
 import { Colors } from "./Models/Colors";
+import { FigureName } from "./Models/Figures/Figure";
 import { Player } from "./Models/Player";
 
 interface BoardProps {
@@ -32,8 +33,23 @@ const BoardComponent: FC<BoardProps> = ({
       selectedCell !== cell &&
       selectedCell.figure?.canMove(cell)
     ) {
+      
+      // state rewriting for kings
+      if(!!board.whiteKing && board.whiteKing.figure)
+        board.whiteKing.figure.checked = false;
+      if(!!board.blackKing && board.blackKing.figure)
+        board.blackKing.figure.checked = false;
+
+      if(selectedCell.figure?.name === FigureName.KING) {  
+        selectedCell.figure.color === Colors.WHITE
+        ? board.whiteKing = cell
+        : board.blackKing = cell;
+      }
+
       selectedCell.moveFigure(cell);
       setSelectedCell(null);
+
+      kingsVulnerabilityChecking();
 
       // swap player
       swapPlayer();
@@ -50,6 +66,10 @@ const BoardComponent: FC<BoardProps> = ({
   function highlightCells() {
     board.highlightCells(selectedCell);
     updateBoard();
+  }
+
+  function kingsVulnerabilityChecking() {
+    return board.kingsVulnerabilityChecking();
   }
 
   function updateBoard() {

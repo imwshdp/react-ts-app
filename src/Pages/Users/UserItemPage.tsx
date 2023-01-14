@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import { IUser } from '../../Types/Types';
+import { IUser } from '../../types/Types';
 import { useParams, useNavigate } from 'react-router-dom'
 
 import axios from 'axios'
