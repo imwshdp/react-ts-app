@@ -1,23 +1,23 @@
 import { Figure, FigureName } from './Figure';
-import { Cell } from '../Cell';
-import { Colors } from '../Colors';
+import Cell from "Components/Chess/Models/Cell";
+import Colors from "Components/Chess/Models/Colors";
 
-import blackLogo from '../../../../Assets/black-knight.png'
-import whiteLogo from '../../../../Assets/white-knight.png'
+import blackLogo from 'Assets/black-knight.png'
+import whiteLogo from 'Assets/white-knight.png'
 
-export class Knight extends Figure {
+export default class Knight extends Figure {
 
   constructor(color: Colors, cell: Cell) {
     super(color, cell);
     this.name = FigureName.KNIGHT;
     this.logo =
       color === Colors.BLACK
-      ? blackLogo
-      : whiteLogo;
+        ? blackLogo
+        : whiteLogo;
   }
 
   canMove(target: Cell): boolean {
-    if(!super.canMove(target)) {
+    if (!super.canMove(target)) {
       return false;
     }
 

@@ -1,9 +1,9 @@
 import React, {FC, useEffect, useState} from 'react';
 import { IUser } from '../../Types/Types';
 import { useParams, useNavigate } from 'react-router-dom'
-
 import axios from 'axios'
-import Button from '../../Components/Button/Button';
+
+import Button from 'Components/Button/Button';
 
 interface UserItemPageParams {
   [id: string]: string;

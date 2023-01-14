@@ -1,4 +1,6 @@
-export enum Colors {
+enum Colors {
   WHITE = "white",
   BLACK = "black",
 }
+
+export default Colors;

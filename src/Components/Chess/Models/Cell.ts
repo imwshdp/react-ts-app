@@ -1,8 +1,8 @@
-import { Board } from './Board';
-import { Colors } from './Colors';
+import Board from "Components/Chess/Models/Board";
+import Colors from "Components/Chess/Models/Colors";
 import { Figure } from './Figures/Figure';
 
-export class Cell {
+export default class Cell {
 
   // cell coordinates
   readonly x: number;
@@ -36,7 +36,7 @@ export class Cell {
   isEnemy(target: Cell): boolean {
 
     // if target cell contains figure
-    if(target.figure) {
+    if (target.figure) {
       // and that figure is enemy figure = TRUE 
       return this.figure?.color !== target.figure.color;
     }
@@ -47,7 +47,7 @@ export class Cell {
   isEmptyVertical(target: Cell): boolean {
 
     // if x coord is different = do not highlight
-    if(this.x !== target.x) {
+    if (this.x !== target.x) {
       return false;
     }
 
@@ -55,9 +55,9 @@ export class Cell {
     const max = Math.max(this.y, target.y);
 
     // + 1 implements highlighting of figure closest to the empty vertical
-    for(let y = min + 1; y < max; y++) {
+    for (let y = min + 1; y < max; y++) {
       // if some cell in vertical contains figure
-      if(!this.board.getCell(this.x, y).isEmpty()) {
+      if (!this.board.getCell(this.x, y).isEmpty()) {
         // vertical is not empty = do not highlight target cell
         return false;
       }
@@ -68,9 +68,9 @@ export class Cell {
   }
 
   isEmptyHorizontal(target: Cell): boolean {
-    
+
     // if x coord is different = do not highlight
-    if(this.y !== target.y) {
+    if (this.y !== target.y) {
       return false;
     }
 
@@ -78,9 +78,9 @@ export class Cell {
     const max = Math.max(this.x, target.x);
 
     // + 1 implements highlighting of figure closest to the empty horizontal
-    for(let x = min + 1; x < max; x++) {
+    for (let x = min + 1; x < max; x++) {
       // if some cell in horizontal contains figure
-      if(!this.board.getCell(x, this.y).isEmpty()) {
+      if (!this.board.getCell(x, this.y).isEmpty()) {
         // horizontal is not empty = do not highlight target cell
         return false;
       }
@@ -91,13 +91,13 @@ export class Cell {
   }
 
   isEmptyDiagonal(target: Cell): boolean {
-    
+
     // save spacing
     const absX = Math.abs(target.x - this.x);
     const absY = Math.abs(target.y - this.y);
 
     // if spacing is not equal = cell is not from diagonal
-    if(absX !== absY) {
+    if (absX !== absY) {
       return false;
     }
 
@@ -105,14 +105,14 @@ export class Cell {
     const dy = this.y < target.y ? 1 : -1
     const dx = this.x < target.x ? 1 : -1
 
-    for(let i = 1; i < absY; i++) {
+    for (let i = 1; i < absY; i++) {
       // if some cell in diagonal contains figure
-      if(!this.board.getCell(this.x + dx * i, this.y + dy * i).isEmpty()) {
+      if (!this.board.getCell(this.x + dx * i, this.y + dy * i).isEmpty()) {
         // diagonal is not empty = do not highlight target cell
         return false;
       }
     }
-    
+
     return true;
   }
 
@@ -124,13 +124,13 @@ export class Cell {
   }
 
   moveFigure(target: Cell) {
-    if(this.figure && this.figure?.canMove(target)) {
+    if (this.figure && this.figure?.canMove(target)) {
 
       // moving figure
       this.figure.moveFigure(target);
 
       // beating enemy's figure
-      if(target.figure) {
+      if (target.figure) {
         this.board.addLostFigure(target.figure);
       }
 

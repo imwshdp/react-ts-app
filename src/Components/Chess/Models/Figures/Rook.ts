@@ -1,33 +1,33 @@
 import { Figure, FigureName } from './Figure';
-import { Cell } from '../Cell';
-import { Colors } from '../Colors';
+import Cell from "Components/Chess/Models/Cell";
+import Colors from "Components/Chess/Models/Colors";
 
-import blackLogo from '../../../../Assets/black-rook.png'
-import whiteLogo from '../../../../Assets/white-rook.png'
+import blackLogo from 'Assets/black-rook.png'
+import whiteLogo from 'Assets/white-rook.png'
 
-export class Rook extends Figure {
+export default class Rook extends Figure {
 
   constructor(color: Colors, cell: Cell) {
     super(color, cell);
     this.name = FigureName.ROOK;
     this.logo =
       color === Colors.BLACK
-      ? blackLogo
-      : whiteLogo;
+        ? blackLogo
+        : whiteLogo;
   }
 
   canMove(target: Cell): boolean {
-    if(!super.canMove(target)) {
+    if (!super.canMove(target)) {
       return false;
     }
 
     // vertical available cells to move
-    if(this.cell.isEmptyVertical(target)) {
+    if (this.cell.isEmptyVertical(target)) {
       return true;
     }
 
-     // vertical available cells to move
-     if(this.cell.isEmptyHorizontal(target)) {
+    // vertical available cells to move
+    if (this.cell.isEmptyHorizontal(target)) {
       return true;
     }
 

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Cell } from "./Models/Cell";
+import Cell from "Components/Chess/Models/Cell";
 
 interface CellProps {
   cell: Cell;
@@ -15,9 +15,12 @@ const CellComponent: FC<CellProps> = ({ cell, selected, click }) => {
         click(cell);
       }}
       // green background if cell contains figure and is available to move
-      style={{
-        background: cell.available && cell.figure ? "green" : "",
-      }}
+      style={
+        // background: cell.available && cell.figure ? "green" : ""
+        cell.figure?.checked === true
+        ? { background: "rgb(255, 99, 71)" }
+        : { background: cell.available && cell.figure ? "green" : "" }
+      }
     >
       {/* green marks of availability to move */}
       {cell.available && !cell.figure && <div className="available" />}

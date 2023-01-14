@@ -1,6 +1,6 @@
-import { Cell } from './../Cell';
-import { Colors } from './../Colors';
-import logo from '../../../../Assets/black-king.png'
+import Cell from "Components/Chess/Models/Cell";
+import Colors from "Components/Chess/Models/Colors";
+import logo from 'Assets/black-king.png'
 
 export enum FigureName {
   FIGURE = "Фигура",
@@ -13,41 +13,33 @@ export enum FigureName {
 }
 
 export class Figure {
-  
   color: Colors;
   logo: typeof logo | null;
   cell: Cell;
   name: FigureName;
   id: number;
+  checked?: boolean;
 
   constructor(color: Colors, cell: Cell) {
     this.color = color;
     this.cell = cell;
-    
+
     // adding figure on cell
     this.cell.figure = this;
 
-    this.logo = null; 
+    this.logo = null;
     this.name = FigureName.FIGURE;
 
     this.id = Math.random()
   }
 
-  canMove(target: Cell) : boolean {
-
+  canMove(target: Cell): boolean {
     // self figure beating prevention
-    if(target.figure?.color === this.color)
+    if (target.figure?.color === this.color)
       return false;
-
-    // checkmate
-    if(target.figure?.name === FigureName.KING)
-      return true;
 
     return true;
   }
 
-  moveFigure(target: Cell) {
-    
-  }
-
+  moveFigure(target: Cell) { }
 };
