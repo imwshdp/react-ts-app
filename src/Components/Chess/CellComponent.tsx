@@ -18,7 +18,7 @@ const CellComponent: FC<CellProps> = ({ cell, selected, click }) => {
       style={
         // background: cell.available && cell.figure ? "green" : ""
         cell.figure?.checked === true
-        ? { background: cell.available && cell.figure ? "green" : "", border: "3px solid tomato" }
+        ? { background: "rgb(255, 99, 71)" }
         : { background: cell.available && cell.figure ? "green" : "" }
       }
     >

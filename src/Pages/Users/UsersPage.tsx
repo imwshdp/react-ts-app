@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import { IUser } from '../../types/Types';
+import { IUser } from '../../Types/Types';
 import List from '../../Components/List/List';
 import UserItem from '../../Components/Users/UserItem/UserItem';
 import UserList from '../../Components/Users/UserList/UserList';

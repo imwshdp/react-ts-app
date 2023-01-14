@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 
 import axios from 'axios'
-import { ITodo } from '../../types/Types';
+import { ITodo } from '../../Types/Types';
 import Button from '../../Components/Button/Button';
 
 interface TodoItemPageParams {
