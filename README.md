@@ -16,10 +16,10 @@ Hosted review version of app is available [here](https://react-ts-app-one.vercel
 ## Stack
 
 * `React` v18
-* TypeScript as a template
-* React hooks for state management and navigation
-* React Router v6 for Routing
-* Axios for working with API requests
+* `TypeScript` as a template
+* `React hooks` for state management and navigation
+* `React Router` v6 for Routing
+* `Axios` for working with API requests
 
 ## Learn More
 
