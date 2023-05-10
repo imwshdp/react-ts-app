@@ -1,62 +1,81 @@
-import React, { FC, useState, useRef, useEffect } from "react";
-import Colors from "Components/Chess/Models/Colors";
-import Player from "Components/Chess/Models/Player";
+import React, { FC, useState, useRef, useEffect } from 'react';
+import Colors from 'Components/Chess/Models/Colors';
+import Player from 'Components/Chess/Models/Player';
 
 interface TimerProps {
-  currentPlayer: Player | null;
-  restart: () => void;
+	currentPlayer: Player | null;
+	restart: () => void;
+
+	isGameActive: boolean;
+	setIsGameActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
-  
-  const [blackTime, setBlackTime] = useState(600);
-  const [whiteTime, setWhiteTime] = useState(600);
+const Timer: FC<TimerProps> = ({
+	currentPlayer,
+	restart,
+	isGameActive,
+	setIsGameActive,
+}) => {
+	const [blackTime, setBlackTime] = useState(600);
+	const [whiteTime, setWhiteTime] = useState(600);
 
-  const timer = useRef<null | ReturnType<typeof setInterval>>(null);
+	const timer = useRef<null | ReturnType<typeof setInterval>>(null);
 
-  useEffect(() => {
-    startTimer();
-  }, [currentPlayer]);
+	useEffect(() => {
+		if (!isGameActive) {
+			if (timer.current) clearInterval(timer.current);
+		} else {
+			startTimer();
+		}
+	}, [currentPlayer, isGameActive]);
 
-  function startTimer() {
-    // stopping timer for player
-    if (timer.current) {
-      clearInterval(timer.current);
-    }
+	useEffect(() => {
+		if (whiteTime === 0 || blackTime === 0) {
+			setIsGameActive(false);
+		}
+	}, [whiteTime, blackTime]);
 
-    // picking current timer
-    const callback =
-      currentPlayer?.color === Colors.WHITE
-        ? decrementWhiteTimer
-        : decrementBlackTimer;
+	function startTimer() {
+		// stopping timer for player
+		if (timer.current) {
+			clearInterval(timer.current);
+		}
 
-    // start new timer
-    timer.current = setInterval(callback, 1000);
-  }
+		// picking current timer
+		const callback =
+			currentPlayer?.color === Colors.WHITE
+				? decrementWhiteTimer
+				: decrementBlackTimer;
 
-  function decrementBlackTimer() {
-    setBlackTime((prev) => prev - 1);
-  }
+		// start new timer
+		timer.current = setInterval(callback, 1000);
+	}
 
-  function decrementWhiteTimer() {
-    setWhiteTime((prev) => prev - 1);
-  }
+	function decrementBlackTimer() {
+		setBlackTime(prev => prev - 1);
+	}
 
-  const handleRestart = () => {
-    setBlackTime(300);
-    setWhiteTime(300);
-    restart();
-  };
+	function decrementWhiteTimer() {
+		setWhiteTime(prev => prev - 1);
+	}
 
-  return (
-    <div className="timer">
-      <button className="newGame" onClick={handleRestart}>
-        Новая игра
-      </button>
-      <h2>Черные: {blackTime}</h2>
-      <h2>Белые: {whiteTime}</h2>
-    </div>
-  );
+	const handleRestart = () => {
+		setBlackTime(100);
+		setWhiteTime(100);
+		if (timer.current) clearInterval(timer.current);
+
+		restart();
+	};
+
+	return (
+		<div className='timer'>
+			<button className='newGame' onClick={handleRestart}>
+				Новая игра
+			</button>
+			<h2>Черные: {blackTime}</h2>
+			<h2>Белые: {whiteTime}</h2>
+		</div>
+	);
 };
 
 export default Timer;

@@ -1,144 +1,144 @@
-import Board from "Components/Chess/Models/Board";
-import Colors from "Components/Chess/Models/Colors";
+import Board from 'Components/Chess/Models/Board';
+import Colors from 'Components/Chess/Models/Colors';
 import { Figure } from './Figures/Figure';
 
 export default class Cell {
+	// cell coordinates
+	readonly x: number;
+	readonly y: number;
+	readonly color: Colors;
+	id: number;
+	figure: Figure | null;
+	board: Board;
 
-  // cell coordinates
-  readonly x: number;
-  readonly y: number;
-  readonly color: Colors;
-  figure: Figure | null;
-  board: Board;
+	available: boolean; // to stand on cell
+	blocked: boolean; // block possibility to click on cell
 
-  // to stand on cell
-  available: boolean;
+	constructor(
+		board: Board,
+		x: number,
+		y: number,
+		color: Colors,
+		figure: Figure | null
+	) {
+		this.x = x;
+		this.y = y;
+		this.color = color;
 
-  id: number;
+		this.figure = figure;
+		this.board = board;
 
-  constructor(board: Board, x: number, y: number, color: Colors, figure: Figure | null) {
-    this.x = x;
-    this.y = y;
-    this.color = color;
+		this.available = false;
+		this.blocked = false;
+		this.id = Math.random();
+	}
 
-    this.figure = figure;
-    this.board = board;
+	isEmpty(): boolean {
+		// TRUE = empty cell, FALSE = cell with figure
+		return this.figure === null;
+	}
 
-    this.available = false;
-    this.id = Math.random();
-  }
+	isEnemy(target: Cell): boolean {
+		// if target cell contains figure
+		if (target.figure) {
+			// and that figure is enemy figure = TRUE
+			return this.figure?.color !== target.figure.color;
+		}
+		// else = FALSE
+		return false;
+	}
 
-  isEmpty(): boolean {
-    // TRUE = empty cell, FALSE = cell with figure
-    return this.figure === null;
-  }
+	isEmptyVertical(target: Cell): boolean {
+		// if x coord is different = do not highlight
+		if (this.x !== target.x) {
+			return false;
+		}
 
-  isEnemy(target: Cell): boolean {
+		const min = Math.min(this.y, target.y);
+		const max = Math.max(this.y, target.y);
 
-    // if target cell contains figure
-    if (target.figure) {
-      // and that figure is enemy figure = TRUE 
-      return this.figure?.color !== target.figure.color;
-    }
-    // else = FALSE
-    return false;
-  }
+		// + 1 implements highlighting of figure closest to the empty vertical
+		for (let y = min + 1; y < max; y++) {
+			// if some cell in vertical contains figure
+			if (!this.board.getCell(this.x, y).isEmpty()) {
+				// vertical is not empty = do not highlight target cell
+				return false;
+			}
+		}
 
-  isEmptyVertical(target: Cell): boolean {
+		// if there is no one figure = vertical is empty = highlight target cell
+		return true;
+	}
 
-    // if x coord is different = do not highlight
-    if (this.x !== target.x) {
-      return false;
-    }
+	isEmptyHorizontal(target: Cell): boolean {
+		// if x coord is different = do not highlight
+		if (this.y !== target.y) {
+			return false;
+		}
 
-    const min = Math.min(this.y, target.y);
-    const max = Math.max(this.y, target.y);
+		const min = Math.min(this.x, target.x);
+		const max = Math.max(this.x, target.x);
 
-    // + 1 implements highlighting of figure closest to the empty vertical
-    for (let y = min + 1; y < max; y++) {
-      // if some cell in vertical contains figure
-      if (!this.board.getCell(this.x, y).isEmpty()) {
-        // vertical is not empty = do not highlight target cell
-        return false;
-      }
-    }
+		// + 1 implements highlighting of figure closest to the empty horizontal
+		for (let x = min + 1; x < max; x++) {
+			// if some cell in horizontal contains figure
+			if (!this.board.getCell(x, this.y).isEmpty()) {
+				// horizontal is not empty = do not highlight target cell
+				return false;
+			}
+		}
 
-    // if there is no one figure = vertical is empty = highlight target cell
-    return true;
-  }
+		// if there is no one figure = horizontal is empty = highlight target cell
+		return true;
+	}
 
-  isEmptyHorizontal(target: Cell): boolean {
+	isEmptyDiagonal(target: Cell): boolean {
+		// save spacing
+		const absX = Math.abs(target.x - this.x);
+		const absY = Math.abs(target.y - this.y);
 
-    // if x coord is different = do not highlight
-    if (this.y !== target.y) {
-      return false;
-    }
+		// if spacing is not equal = cell is not from diagonal
+		if (absX !== absY) {
+			return false;
+		}
 
-    const min = Math.min(this.x, target.x);
-    const max = Math.max(this.x, target.x);
+		// saving direction
+		const dy = this.y < target.y ? 1 : -1;
+		const dx = this.x < target.x ? 1 : -1;
 
-    // + 1 implements highlighting of figure closest to the empty horizontal
-    for (let x = min + 1; x < max; x++) {
-      // if some cell in horizontal contains figure
-      if (!this.board.getCell(x, this.y).isEmpty()) {
-        // horizontal is not empty = do not highlight target cell
-        return false;
-      }
-    }
+		for (let i = 1; i < absY; i++) {
+			// if some cell in diagonal contains figure
+			if (!this.board.getCell(this.x + dx * i, this.y + dy * i).isEmpty()) {
+				// diagonal is not empty = do not highlight target cell
+				return false;
+			}
+		}
 
-    // if there is no one figure = horizontal is empty = highlight target cell
-    return true;
-  }
+		return true;
+	}
 
-  isEmptyDiagonal(target: Cell): boolean {
+	setFigure(figure: Figure) {
+		// add figure to cell
+		this.figure = figure;
+		// add cell (this) to figure of new cell (this)
+		this.figure.cell = this;
+	}
 
-    // save spacing
-    const absX = Math.abs(target.x - this.x);
-    const absY = Math.abs(target.y - this.y);
+	moveFigure(target: Cell) {
+		if (this.figure && this.figure?.canMove(target)) {
+			// moving figure
+			this.figure.moveFigure(target);
 
-    // if spacing is not equal = cell is not from diagonal
-    if (absX !== absY) {
-      return false;
-    }
+			// beating enemy's figure
+			if (target.figure) {
+				this.board.addLostFigure(target.figure);
+			}
 
-    // saving direction
-    const dy = this.y < target.y ? 1 : -1
-    const dx = this.x < target.x ? 1 : -1
+			// add figure to new cell
+			target.setFigure(this.figure);
 
-    for (let i = 1; i < absY; i++) {
-      // if some cell in diagonal contains figure
-      if (!this.board.getCell(this.x + dx * i, this.y + dy * i).isEmpty()) {
-        // diagonal is not empty = do not highlight target cell
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  setFigure(figure: Figure) {
-    // add figure to cell
-    this.figure = figure;
-    // add cell (this) to figure of new cell (this)
-    this.figure.cell = this;
-  }
-
-  moveFigure(target: Cell) {
-    if (this.figure && this.figure?.canMove(target)) {
-
-      // moving figure
-      this.figure.moveFigure(target);
-
-      // beating enemy's figure
-      if (target.figure) {
-        this.board.addLostFigure(target.figure);
-      }
-
-      // add figure to new cell
-      target.setFigure(this.figure);
-
-      // delete figure on old cell
-      this.figure = null;
-    }
-  }
+			// delete figure on old cell
+			this.figure = null;
+		}
+	}
 }
